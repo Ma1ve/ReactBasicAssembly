@@ -6,7 +6,6 @@ import { ClickCounter } from './ClickCounter';
 
 export const App = () => {
   const num = 0;
-  console.log(1);
   return (
     <div>
       <h1>
