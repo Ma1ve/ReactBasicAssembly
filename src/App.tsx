@@ -1,26 +1,35 @@
+import { useAppDispatch, useAppSelector } from './hooks/redux';
 import './index.css';
+import { fetchUsers } from './store/reducers/ActionCreators';
+import { userSlice } from './store/reducers/UserSlice';
 
-import IMAGE from './react.png';
-import LOGO from './logo.svg';
-import { ClickCounter } from './ClickCounter';
-import UserList from './components/UserList';
-import TodoList from './components/TodoList';
-import Counter from './components/Counter';
+import React, { useEffect } from 'react';
 
 export const App = () => {
+  const { isLoading, error, count, users } = useAppSelector((state) => state.userReducer);
+
+  const { increment } = userSlice.actions;
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
+
+  if (isLoading) {
+    return <h1>isLoading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Error...</h1>;
+  }
+
+  // console.log(isLoading);
+
   return (
     <div>
-      <h1>
-        React TypeScript Webpack Starter Template - {process.env.NODE_ENV} {process.env.name}
-      </h1>
-      <Counter />
-      <img src={IMAGE} alt="React logo" height="300" />
-      <img src={LOGO} alt="React logo" height="300" />
-      <ClickCounter />
-      <div style={{ display: 'flex' }}>
-        <UserList />
-        <TodoList />
-      </div>
+      {JSON.stringify(users, null, 2)}
+      <h1>{count}</h1>
+      <button onClick={() => dispatch(increment(3))}>+</button>
     </div>
   );
 };

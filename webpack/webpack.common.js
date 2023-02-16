@@ -41,8 +41,8 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, '..', './src/index.html'),
     }),
-    new CopyPlugin({
-      patterns: [{ from: './src/source', to: 'dest' }],
-    }),
+    // new CopyPlugin({
+    //   patterns: [{ from: './src/source', to: 'dest' }],
+    // }),
   ],
 };
